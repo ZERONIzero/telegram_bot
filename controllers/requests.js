@@ -2,12 +2,12 @@ const TelegramBot = require('node-telegram-bot-api');
 const telegramCalendar = require('telegram-bot-calendar-lite');
 const mysql = require("mysql2");
 
-
 const calendar = new telegramCalendar();
 const buttons = calendar.generateCalendar();
 
-
 let base_menu = null;
+let doctor_menu = null;
+let calendar_select = null;
 
 function ways(bot){
     bot.onText(/\/start/, async msg => {
@@ -97,7 +97,7 @@ function ways(bot){
                 await bot.deleteMessage(base_menu.chat.id, base_menu.message_id);
                 base_menu = null;
             }
-            await bot.sendPhoto(msg.chat.id, './assets/menu_img_1.jpg', {
+            doctor_menu = await bot.sendPhoto(msg.chat.id, './assets/menu_img_1.jpg', {
                 caption: '<b>Выберите специалиста</b>',
                 parse_mode: 'HTML',
                 reply_markup: {
@@ -120,15 +120,52 @@ function ways(bot){
         }
     });
 
-    bot.on('callback_query', async ctx => {
+    bot.on('callback_query', async (ctx,match) => {
         try {
-            switch(ctx.data) {
-                case "closeMenu":
-                    await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id);
-                    break;
+            const data = ctx.data;
 
+            if (data.includes("month_next")) {
+                if (calendar_select) {
+                    await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id);
+                    calendar_select = null;
+                }
+
+                const newDate = new Date();
+
+                newDate.setMonth(newDate.getMonth() + 1);
+                calendar.setDate(newDate);
+
+                let buttons = calendar.generateCalendar();
+
+                calendar_select = await bot.sendMessage(ctx.message.chat.id, "Выберите дату", {
+                    reply_markup: buttons,
+                });
+            } else if (data == "closeMenu"){
+                if (doctor_menu) {
+                    await bot.deleteMessage(ctx.message.chat.id, doctor_menu.message_id);
+                    doctor_menu = null;
+                }
+                // await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id);
+            } else if (data.includes(".day_calendar")) {
+                const date = data.replace(/\..*$/, "");
+                if (calendar_select) {
+                    await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id);
+                    calendar_select = null;
+                }
+                if (doctor_menu) {
+                    await bot.deleteMessage(ctx.message.chat.id, doctor_menu.message_id);
+                    doctor_menu = null;
+                }
+                console.log(date);
+            } else {
+                if (calendar_select) {
+                    await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id);
+                    calendar_select = null;
+                }
+                calendar_select = await bot.sendMessage(ctx.message.chat.id, "Выберите дату", {
+                    reply_markup: buttons,
+                });
             }
-    
         }
         catch(error) {
     
