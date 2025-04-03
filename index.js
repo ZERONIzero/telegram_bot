@@ -1,5 +1,5 @@
 const TelegramBot = require('node-telegram-bot-api');
-const API_KEY_BOT = require('./settings/token');
+const API_KEY_BOT = require('./settings/key/token');
 const commands = require('./settings/command');
 const ways = require('./controllers/requests');
 
@@ -11,20 +11,25 @@ bot.on("polling_error", err => console.log(err.data.error.message));
 
 ways(bot);
 
-// bot.on('text', async msg => {
+// const bot = new TelegramBot(API_KEY_BOT, {
+//     polling: true,
+//   });
+//   const { telegramCalendar } = require('telegram-bot-calendar-lite');
+  
+//   const calendar = new telegramCalendar(new Date(2024, 7, 1), 1, '2', "X", "*", "→", "←");
+//   const buttons = calendar.generateCalendar();
+  
+//   bot.sendMessage(chatId, "text", {
+//       reply_markup: buttons,
+//   });
 
-//     try{
-//         // if (msg.text == '/start') {
-//         //     await bot.sendMessage(msg.chat.id, `С первым запуском бота!`);
-//         // } else {
-//         //     let msgWait = await bot.sendMessage(msg.chat.id, `Бот генерирует ответ...`);
-//         //     setTimeout(async () => {
-//         //         // await bot.deleteMessage(msgWait.chat.id, msgWait.message_id);
-//         //         await bot.editMessageText("😁", { chat_id: msgWait.chat.id, message_id: msgWait.message_id });
-//         //         // await bot.sendMessage(msg.chat.id,"😁");
-//         //     },4000);
-//         // }
-//     } catch (error) {
-//         console.log(error);
-//     }
+// bot.on('message', (msg) => {
+//     const chatId = msg.chat.id;
+
+//     bot.sendMessage(chatId, "Выберите дату:", {
+//         reply_markup: buttons
+//     });
 // });
+
+// Обработка ошибок
+// bot.on("polling_error", err => console.log(err.data.error.message));

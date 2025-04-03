@@ -4,12 +4,12 @@ let commands = [
         description : "Запуск бота"
     },
     {
-        command: "ref",
-        description: "Получить реферальную ссылку"
+        command: "info",
+        description: "Контактные данные стоматологии"
     },
     {
-        command: "about",
-        description: "Узнать об авторах"
+        command: "menu",
+        description: "Показать меню"
     }
 ]
 

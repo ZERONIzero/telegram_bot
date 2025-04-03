@@ -10,6 +10,9 @@
   "author": "Arsen_Karakeyan (ZeroNI)",
   "license": "ISC",
   "dependencies": {
-    "node-telegram-bot-api": "^0.66.0"
+    "mysql2": "^3.14.0",
+    "node-telegram-bot-api": "^0.66.0",
+    "telegram-bot-calendar-lite": "^1.0.21",
+    "telegram-bot-time-calendar-lite": "^1.0.0"
   }
 }
