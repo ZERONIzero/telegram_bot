@@ -2,4 +2,7 @@
     time { id: integer,not null,primary key; start: time; end: time},
     human {id:  integer,not null,primary key; id_telegram : integer,not null }
 
+<h1>Телеграмм-бот на Node.js</h1>
+
+База данных будет локальной на sqlite.
 Найдите пожалуйста аниме-картинки, гифки, стикеры
