@@ -39,15 +39,18 @@ open({
     filename: './bot.db',
     driver: sqlite3.Database
 }).then(async (db) => {
-//     // await db.exec(`
-//     //     CREATE TABLE IF NOT EXISTS doctor (
-//     //     id INTEGER NOT NULL PRIMARY KEY,
-//     //     FIO VARCHAR(250) NOT NULL,
-//     //     specialty VARCHAR(250) NOT NULL,
-//     //     gender_of_the_person VARCHAR(1),
-//     //     telegram_id VARCHAR(50)
-//     //     )
-//     // `);
+    await db.exec(`
+        CREATE TABLE IF NOT EXISTS zapis (
+        id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        doctor_id INTEGER NOT NULL,
+        patient_id INTEGER NOT NULL,
+        time_start TIME NOT NULL,
+        time_end TIME NOT NULL,
+        date_write DATE NOT NULL,
+        FOREIGN KEY (doctor_id) REFERENCES doctors(id),
+        FOREIGN KEY (patient_id) REFERENCES patients(id)
+        )
+    `);
 
 //     // await db.exec(`
 //     //     CREATE TABLE IF NOT EXISTS human (
