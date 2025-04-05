@@ -2,6 +2,7 @@
   "name": "telegram-bot",
   "version": "0.0.1",
   "description": "tutorial",
+  "type": "module",
   "main": "index.js",
   "start": "index.js",
   "scripts": {
@@ -10,8 +11,9 @@
   "author": "Arsen_Karakeyan (ZeroNI)",
   "license": "ISC",
   "dependencies": {
-    "mysql2": "^3.14.0",
     "node-telegram-bot-api": "^0.66.0",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7",
     "telegram-bot-calendar-lite": "^1.0.21",
     "telegram-bot-time-calendar-lite": "^1.0.0"
   }
