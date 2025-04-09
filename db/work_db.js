@@ -47,8 +47,8 @@ open({
         time_start TIME NOT NULL,
         time_end TIME NOT NULL,
         date_write DATE NOT NULL,
-        FOREIGN KEY (doctor_id) REFERENCES doctors(id),
-        FOREIGN KEY (patient_id) REFERENCES patients(id)
+        FOREIGN KEY (doctor_id) REFERENCES doctor(id),
+        FOREIGN KEY (patient_id) REFERENCES human(id)
         )
     `);
 
